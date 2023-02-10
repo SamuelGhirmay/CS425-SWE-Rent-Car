@@ -1,19 +1,18 @@
-package edu.miu.cs425swerentcar.entity;
+package edu.miu.cs425swerentcar.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import edu.miu.cs425swerentcar.entity.Discount;
+import edu.miu.cs425swerentcar.entity.VehicleStatus;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "vehicles")
-@NoArgsConstructor
+@Data
 @AllArgsConstructor(staticName = "build")
-@Getter
-@Setter
-public class Vehicle {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long vehicleId;
-
+@NoArgsConstructor
+public class VehicleRequest {
     @Column(name = "make")
     private String make;
 
@@ -34,8 +33,8 @@ public class Vehicle {
 
     private String transmission;
 
-//    private String availability;
     private VehicleStatus vehicleStatus;
+
     private String plateNumber;
 
     @ManyToOne
