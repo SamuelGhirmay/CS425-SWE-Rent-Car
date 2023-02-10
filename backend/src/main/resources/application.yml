@@ -2,12 +2,12 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/rentcar
     username: postgres
-    password: 1
+    password: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 server:
-  port: 8080
+  port: 8081
