@@ -29,7 +29,9 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public Discount updateDiscountById(DiscountRequest discount, Long discountId) {
-        Discount updatedDiscount = Discount.build(discountId, discount.getAmount(),discount.getCurrency(),discount.getDescription(),discount.getTitle());
+        Discount updatedDiscount = Discount.build(discountId, discount.getAmount(),
+                discount.getCurrency(),discount.getDescription(),discount.getTitle(),
+                discount.getVehicle());
         return updatedDiscount;
     }
 

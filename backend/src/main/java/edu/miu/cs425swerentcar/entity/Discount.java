@@ -26,7 +26,7 @@ public class Discount {
 
         private String title;
         @OneToMany(fetch = FetchType.EAGER)
-        @JoinColumn(name = "vehicle_id")
+        @JoinColumn(name = "vehicleId")
 
         private List<Vehicle> vehicle;
 
