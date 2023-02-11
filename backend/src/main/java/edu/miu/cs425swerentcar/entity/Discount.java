@@ -2,6 +2,9 @@ package edu.miu.cs425swerentcar.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
+
+import java.util.List;
 
 @Entity
 @AllArgsConstructor(staticName = "build")
@@ -22,6 +25,10 @@ public class Discount {
         private String description;
 
         private String title;
+        @OneToMany(fetch = FetchType.EAGER)
+        @JoinColumn(name = "vehicle_id")
+
+        private List<Vehicle> vehicle;
 
 
 

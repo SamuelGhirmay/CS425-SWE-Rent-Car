@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/car-rental/v1/api/reservation")
+@RequestMapping(value = "/car-rental/api/v1//reservation")
 public class ReservationController {
 
     private ReservationService reservationService;

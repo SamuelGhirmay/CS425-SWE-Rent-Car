@@ -29,4 +29,6 @@ public class Reservation {
     private Customer customer;
     @ManyToOne
     private Vehicle vehicle;
+    @OneToOne
+    private Payment payment;
 }

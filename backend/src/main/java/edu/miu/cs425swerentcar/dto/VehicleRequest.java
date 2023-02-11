@@ -1,7 +1,8 @@
 package edu.miu.cs425swerentcar.dto;
 
 import edu.miu.cs425swerentcar.entity.Discount;
-import edu.miu.cs425swerentcar.entity.VehicleStatus;
+import edu.miu.cs425swerentcar.enums.VehicleFuelType;
+import edu.miu.cs425swerentcar.enums.VehicleTransmission;
 import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -13,31 +14,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(staticName = "build")
 @NoArgsConstructor
 public class VehicleRequest {
-    @Column(name = "make")
+
     private String make;
 
-    @Column(name = "model")
     private String model;
 
-    @Column(name = "year")
     private int year;
 
-    @Column(name = "color")
     private String color;
 
     private int numberOfSeats;
 
-    private String fuelType;
-
     private double price;
 
-    private String transmission;
+    private VehicleTransmission transmission;
 
-    private VehicleStatus vehicleStatus;
+    private VehicleFuelType fuelType;
+
+    private boolean available;
 
     private String plateNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "discount_id")
-    private Discount discount;
+    private Long discountId;
 }

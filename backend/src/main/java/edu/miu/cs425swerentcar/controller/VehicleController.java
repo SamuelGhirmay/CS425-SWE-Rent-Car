@@ -3,13 +3,11 @@ package edu.miu.cs425swerentcar.controller;
 
 import edu.miu.cs425swerentcar.dto.VehicleRequest;
 import edu.miu.cs425swerentcar.entity.Vehicle;
-import edu.miu.cs425swerentcar.entity.VehicleStatus;
 import edu.miu.cs425swerentcar.exception.VehicleNotFoundException;
 import edu.miu.cs425swerentcar.service.VehicleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/car-rental/v1/api/vehicles")
+@RequestMapping(value = "/car-rental/api/v1//vehicles")
 public class VehicleController {
 
     private VehicleService vehicleService;
@@ -56,7 +54,7 @@ public class VehicleController {
     }
 
     @PostMapping(value = "/add")
-    public Vehicle addNewVehicle(@Valid @RequestBody Vehicle vehicle)  {
+    public Vehicle addNewVehicle(@Valid @RequestBody VehicleRequest vehicle)  {
         return vehicleService.addNewVehicle(vehicle);
     }
     @DeleteMapping(value = "/delete/{vehicleId}")
@@ -64,10 +62,10 @@ public class VehicleController {
         vehicleService.deleteById(vehicleId);
     }
 
-    @PutMapping("/update-status/{vehicleId}")
-    public void updateVehicleStatus(@PathVariable Long vehicleId, @RequestBody VehicleStatus vehicleStatus){
-         vehicleService.updateVehicleStatus(vehicleId, vehicleStatus);
-
-    }
+//    @PutMapping("/update-status/{vehicleId}")
+//    public void updateVehicleStatus(@PathVariable Long vehicleId, @RequestBody VehicleStatus vehicleStatus){
+//         vehicleService.updateVehicleStatus(vehicleId, vehicleStatus);
+//
+//    }
 
 }

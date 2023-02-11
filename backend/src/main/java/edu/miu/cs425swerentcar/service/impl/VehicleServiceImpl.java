@@ -2,7 +2,6 @@ package edu.miu.cs425swerentcar.service.impl;
 
 import edu.miu.cs425swerentcar.dto.VehicleRequest;
 import edu.miu.cs425swerentcar.entity.Vehicle;
-import edu.miu.cs425swerentcar.entity.VehicleStatus;
 import edu.miu.cs425swerentcar.exception.VehicleNotFoundException;
 import edu.miu.cs425swerentcar.repository.VehicleRepository;
 import edu.miu.cs425swerentcar.service.VehicleService;
@@ -50,14 +49,18 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle updateVehicleById(VehicleRequest vehicle, Long vehicleId) {
-        Vehicle updatedVehicle = Vehicle.build(vehicleId, vehicle.getMake(), vehicle.getModel(), vehicle.getYear(), vehicle.getColor(), vehicle.getNumberOfSeats(),
-                vehicle.getFuelType(), vehicle.getPrice(), vehicle.getTransmission(), vehicle.getVehicleStatus(), vehicle.getPlateNumber(), vehicle.getDiscount());
+        Vehicle updatedVehicle = Vehicle.build(vehicleId, vehicle.getMake(),vehicle.getModel(), vehicle.getYear(),vehicle.getColor(),vehicle.getNumberOfSeats(),vehicle.getPrice(),
+                vehicle.isAvailable(),vehicle.getPlateNumber(),vehicle.getTransmission(),vehicle.getFuelType());
         return vehicleRepository.save(updatedVehicle);
     }
 
     @Override
-    public Vehicle addNewVehicle(Vehicle vehicle) {
-        return vehicleRepository.save(vehicle);
+    public Vehicle addNewVehicle(VehicleRequest vehicle) {
+        var newVehicle = Vehicle.build(null,vehicle.getMake(),
+                vehicle.getModel(),vehicle.getYear(),vehicle.getColor(),vehicle.getNumberOfSeats(),
+                vehicle.getPrice(),vehicle.isAvailable(),vehicle.getPlateNumber(),vehicle.getTransmission(),
+                vehicle.getFuelType());
+        return null;
     }
 
     @Override
@@ -65,14 +68,14 @@ public class VehicleServiceImpl implements VehicleService {
         vehicleRepository.deleteById(vehicleId);
     }
 
-    @Override
-    public void updateVehicleStatus(Long vehicleId, VehicleStatus vehicleStatus) {
-        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicleId);
-        if (vehicleOptional.isPresent()) {
-            vehicleOptional.get().setVehicleStatus(vehicleStatus);
-            vehicleRepository.save(vehicleOptional.get());
-        }
-
-
-    }
+//    @Override
+//    public void updateVehicleStatus(Long vehicleId, VehicleStatus vehicleStatus) {
+//        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicleId);
+//        if (vehicleOptional.isPresent()) {
+//            vehicleOptional.get().setVehicleStatus(vehicleStatus);
+//            vehicleRepository.save(vehicleOptional.get());
+//        }
+//
+//
+//    }
 }
