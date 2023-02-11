@@ -1,29 +1,18 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/cs425-car-rental-project
+    url: jdbc:postgresql://localhost:5432/rentcar
     username: postgres
-    password: 1
+    password: root
   jpa:
     hibernate:
       ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
 server:
   port: 8080
 
 
-# My Application Properties
-
-# MySQL Data Base Properties
-#server.port=8081
-#spring.datasource.url=jdbc:mysql://localhost:3306/cs425-car-rental-project
-#spring.datasource.username=car-rental-project-sys
-#spring.datasource.password=test1234
-#
-#  #JPA Hibernate Configuration properties
-#spring.jpa.show-sql=true
-#spring.jpa.hibernate.ddl-auto=update
-#spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl
-#spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
