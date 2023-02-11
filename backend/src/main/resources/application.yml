@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/rentcar
     username: postgres
-    password: 1
+    password: root
   jpa:
     hibernate:
       ddl-auto: create
@@ -12,4 +12,4 @@ spring:
     show-sql: true
 
 server:
-  port: 8080
+  port: 8081
