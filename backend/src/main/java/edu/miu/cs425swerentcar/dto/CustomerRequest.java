@@ -1,23 +1,18 @@
-package edu.miu.cs425swerentcar.entity;
+package edu.miu.cs425swerentcar.dto;
 
-
-import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor(staticName = "build")
-@NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "customers")
-public class Customer {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CustomerRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
@@ -26,7 +21,7 @@ public class Customer {
     private String email;
     private String phone;
     private String password;
-    @NotBlank(message = "driving license must not be null")
+    private String status;
     private String driverLicense;
 
 }
