@@ -15,9 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class AdminRequest {
-
-    private String userName;
+    private String username;
     private String password;
-    private String position;
-
 }

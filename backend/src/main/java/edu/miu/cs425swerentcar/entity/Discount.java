@@ -1,10 +1,11 @@
 package edu.miu.cs425swerentcar.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor(staticName = "build")
@@ -18,18 +19,17 @@ public class Discount {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long discountId;
 
-        private double amount;
+        private double percentage;
 
-        private String currency;
+        private String code;
 
         private String description;
 
+        @CreationTimestamp
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private LocalDateTime createdAt;
+
         private String title;
-        @OneToMany(fetch = FetchType.EAGER)
-        @JoinColumn(name = "vehicleId")
 
-        private List<Vehicle> vehicle;
-
-
-
+        private String vehicleMake;
 }

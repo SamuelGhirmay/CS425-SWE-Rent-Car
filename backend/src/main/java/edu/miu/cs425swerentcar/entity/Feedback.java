@@ -1,5 +1,6 @@
 package edu.miu.cs425swerentcar.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,11 +23,11 @@ public class Feedback {
     private Integer rating;
     private String comment;
     @CreationTimestamp
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
     @ManyToOne
     @JoinColumn(name = "customer")
     private Customer customer;
-
 
     public Feedback(Long feedbackId, Integer rating, String comment, Customer customer) {
         this.feedbackId=feedbackId;

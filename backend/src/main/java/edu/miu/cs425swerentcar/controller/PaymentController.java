@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/car-rental/api/v1//payments")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/api/car-rental/payments")
 public class PaymentController {
 
     private PaymentService paymentService;
@@ -21,17 +22,17 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping()
     public List<Payment> listPayments() {
         return paymentService.getAllPayments();
     }
 
-    @GetMapping(value = "/get/{paymentId}")
+    @GetMapping("/{paymentId}")
     public Payment findPaymentById(@PathVariable Long paymentId) {
         return paymentService.viewPaymentById(paymentId);
     }
 
-    @PostMapping(value = "/pay")
+    @PostMapping()
     public Payment makePayment(@Valid @RequestBody Payment payment) {
         return paymentService.makePayment(payment);
     }

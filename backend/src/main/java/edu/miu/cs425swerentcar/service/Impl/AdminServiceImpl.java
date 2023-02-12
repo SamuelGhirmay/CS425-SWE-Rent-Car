@@ -1,6 +1,7 @@
-package edu.miu.cs425swerentcar.service.Impl;
+package edu.miu.cs425swerentcar.service.impl;
 
-import edu.miu.cs425swerentcar.dto.AdminRequest;
+import edu.miu.cs425swerentcar.dto.LoginRequest;
+import edu.miu.cs425swerentcar.dto.LoginResponse;
 import edu.miu.cs425swerentcar.entity.Admin;
 import edu.miu.cs425swerentcar.repository.AdminRepository;
 import edu.miu.cs425swerentcar.service.AdminService;
@@ -24,7 +25,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Admin> getAllAdmin() {
+    public List<Admin> getAll() {
         return adminRepository.findAll();
     }
 
@@ -34,23 +35,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin addNewAdmin(AdminRequest newAdminRequest) {
-        Admin newAdmin = Admin.build(null, newAdminRequest.getUserName(),newAdminRequest.getPassword(),
-                newAdminRequest.getPosition(),null);
-        return adminRepository.save(newAdmin);
+    public LoginResponse login(LoginRequest loginRequest) {
+        Optional<Admin> admin = adminRepository.findAdminByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
+        return new LoginResponse(admin.map(Admin::getAdminId).orElse(null));
     }
-
-
-    @Override
-    public void deleteAdminById(Long adminId) {
-        adminRepository.deleteById(adminId);
-    }
-
-    @Override
-    public Admin updateAdminById(AdminRequest editedAdmin, Long adminId) {
-        Admin updatedAdmin = Admin.build(adminId, editedAdmin.getUserName(), editedAdmin.getPassword(), editedAdmin.getPosition(),null);
-        return adminRepository.save((updatedAdmin));
-    }
-
-
 }

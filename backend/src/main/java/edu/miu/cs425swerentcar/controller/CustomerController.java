@@ -1,41 +1,47 @@
 package edu.miu.cs425swerentcar.controller;
 
 import edu.miu.cs425swerentcar.dto.CustomerRequest;
+import edu.miu.cs425swerentcar.dto.LoginRequest;
+import edu.miu.cs425swerentcar.dto.LoginResponse;
 import edu.miu.cs425swerentcar.entity.Customer;
 import edu.miu.cs425swerentcar.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = {"/car-rental/v1/api/customer"})
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/api/car-rental/customers")
 public class CustomerController {
     @Autowired
    private CustomerService customerService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public Customer createNewCustomer(@Valid @RequestBody CustomerRequest newCustomerRequest){
         return customerService.createCustomer(newCustomerRequest);
     }
 
-    @GetMapping("/list")
-    public List<Customer> displayCustomers(){
-        return customerService.getAllCustomer();
+    @GetMapping("")
+    public List<Customer> getAllCustomers(){
+        return customerService.getAllCustomers();
     }
-    @PutMapping("/update/{customerId}")
-    public Customer updateCustomer(@Valid @RequestBody CustomerRequest updateCustomer,@PathVariable Long customerId){
-
+    @PutMapping("/{customerId}")
+    public Customer updateCustomer(@Valid @RequestBody Customer updateCustomer,@PathVariable Long customerId){
         return customerService.updateCustomer(updateCustomer,customerId);
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/{customerId}")
     public void deleteCustomerById(@PathVariable Long customerId){
         customerService.deleteCustomer(customerId);
     }
 
-
-
-
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+        return new ResponseEntity<>(customerService.login(loginRequest),
+                HttpStatus.OK);
+    }
 }

@@ -30,7 +30,7 @@ public class FeedBackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public List<Feedback> getAllFeedBack() {
+    public List<Feedback> getAllFeedbacks() {
         return feedBackRepository.findAll();
     }
 

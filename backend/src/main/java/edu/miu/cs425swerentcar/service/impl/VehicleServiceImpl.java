@@ -43,39 +43,41 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> getVehicleByTransmission(String transmission) {
-        return vehicleRepository.getVehicleByTransmission(transmission);
+    public List<Vehicle> getAvailableVehicles() {
+        return vehicleRepository.getVehicleByAvailability(true);
     }
 
     @Override
-    public Vehicle updateVehicleById(VehicleRequest vehicle, Long vehicleId) {
-        Vehicle updatedVehicle = Vehicle.build(vehicleId, vehicle.getMake(),vehicle.getModel(), vehicle.getYear(),vehicle.getColor(),vehicle.getNumberOfSeats(),vehicle.getPrice(),
-                vehicle.isAvailable(),vehicle.getPlateNumber(),vehicle.getTransmission(),vehicle.getFuelType());
-        return vehicleRepository.save(updatedVehicle);
+    public Vehicle updateVehicleById(VehicleRequest vehicleRequest, Long vehicleId) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleId).get();
+        if(vehicle != null) {
+            vehicle.setMake(vehicleRequest.getMake());
+            vehicle.setModel(vehicleRequest.getModel());
+            vehicle.setYear(vehicleRequest.getYear());
+            vehicle.setColor(vehicleRequest.getColor());
+            vehicle.setNumberOfSeats(vehicleRequest.getNumberOfSeats());
+            vehicle.setPrice(vehicleRequest.getPrice());
+            vehicle.setAvailability(vehicleRequest.isAvailability());
+            vehicle.setPlateNumber(vehicleRequest.getPlateNumber());
+            vehicle.setTransmission(vehicleRequest.getTransmission());
+            vehicle.setFuelType(vehicleRequest.getFuelType());
+            return vehicleRepository.save(vehicle);
+        }
+
+        return null;
     }
 
     @Override
     public Vehicle addNewVehicle(VehicleRequest vehicle) {
-        var newVehicle = Vehicle.build(null,vehicle.getMake(),
+        Vehicle newVehicle = new Vehicle(null,vehicle.getMake(),
                 vehicle.getModel(),vehicle.getYear(),vehicle.getColor(),vehicle.getNumberOfSeats(),
-                vehicle.getPrice(),vehicle.isAvailable(),vehicle.getPlateNumber(),vehicle.getTransmission(),
+                vehicle.getPrice(),vehicle.isAvailability(),vehicle.getPlateNumber(),vehicle.getTransmission(),
                 vehicle.getFuelType());
-        return null;
+        return vehicleRepository.save(newVehicle);
     }
 
     @Override
     public void deleteById(Long vehicleId) {
         vehicleRepository.deleteById(vehicleId);
     }
-
-//    @Override
-//    public void updateVehicleStatus(Long vehicleId, VehicleStatus vehicleStatus) {
-//        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(vehicleId);
-//        if (vehicleOptional.isPresent()) {
-//            vehicleOptional.get().setVehicleStatus(vehicleStatus);
-//            vehicleRepository.save(vehicleOptional.get());
-//        }
-//
-//
-//    }
 }

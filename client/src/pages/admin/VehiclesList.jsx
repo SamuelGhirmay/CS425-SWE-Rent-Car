@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import VehicleService from "../../API/VehicleService";
 import MyButton from "../../components/UI/button/MyButton";
 
  
@@ -11,87 +12,8 @@ const VehiclesList = () => {
   
     useEffect(() => {
       const fetchData = async () => {
-        const vehicles = [
-            {
-                id: 1,
-                make: "Toyota",
-                model: "Camry",
-                year: 2020,
-                color: "Silver",
-                numberOfSeats: 5,
-                fuelType: "Gasoline",
-                price: 35000,
-                transmission: "Automatic",
-                plateNumber: "ABC123",
-                availability: "Available"
-            },
-            {
-                id: 2,
-                make: "Honda",
-                model: "Civic",
-                year: 2019,
-                color: "Red",
-                numberOfSeats: 5,
-                fuelType: "Gasoline",
-                price: 30000,
-                transmission: "Manual",
-                plateNumber: "DEF456",
-                availability: "Not Available"
-            },
-            {
-                id: 3,
-                make: "Tesla",
-                model: "Model S",
-                year: 2022,
-                color: "Blue",
-                numberOfSeats: 5,
-                fuelType: "Electric",
-                price: 100000,
-                transmission: "Automatic",
-                plateNumber: "GHI789",
-                availability: "Available"
-            },
-            {
-                id: 4,
-                make: "Ford",
-                model: "Mustang",
-                year: 2022,
-                color: "Black",
-                numberOfSeats: 4,
-                fuelType: "Gasoline",
-                price: 60000,
-                transmission: "Automatic",
-                plateNumber: "JKL012",
-                availability: "Available"
-            },
-            {
-                id: 5,
-                make: "Chevrolet",
-                model: "Camaro",
-                year: 2021,
-                color: "Yellow",
-                numberOfSeats: 4,
-                fuelType: "Gasoline",
-                price: 55000,
-                transmission: "Manual",
-                plateNumber: "MNO345",
-                availability: "Not Available"
-            },
-            {
-                id: 6,
-                make: "Dodge",
-                model: "Challenger",
-                year: 2020,
-                color: "Red",
-                numberOfSeats: 4,
-                fuelType: "Gasoline",
-                price: 65000,
-                transmission: "Automatic",
-                plateNumber: "PQR678",
-                availability: "Available"
-            }]
-  
-            setVehicles(vehicles);
+        const vehicles = await VehicleService.getAll();
+        setVehicles(vehicles.data);
       };
       fetchData();
     }, []);
@@ -100,8 +22,8 @@ const VehiclesList = () => {
         navigate(`/vehicles/${id}`);
     }
     
-    function handleDelete() {
-        console.log("delete")
+    async function handleDelete(id) {
+        await VehicleService.deletById(id);
     }
   
     return (
@@ -131,9 +53,9 @@ const VehiclesList = () => {
                 {vehicles.map((vehicle, index) => (
                   <tr key={index}>
                       <td>{index+1}</td>
-                    <td>{vehicle.make}</td>
-                    <td>{vehicle.model}</td>
-                    <td>{vehicle.year}</td>
+                      <td>{vehicle.make}</td>
+                      <td>{vehicle.model}</td>
+                      <td>{vehicle.year}</td>
                       <td>{vehicle.color}</td>
                       <td>{vehicle.numberOfSeats}</td>
                       <td>{vehicle.fuelType}</td>
@@ -142,8 +64,8 @@ const VehiclesList = () => {
                       <td>{vehicle.plateNumber}</td>
                     <td>{vehicle.availability ? 'Available' : 'Not Available'}</td>
                     <td>
-                        <MyButton onClick={() => handleEdit(vehicle.id)}>Edit</MyButton>
-                        <MyButton onClick={handleDelete}>Delete</MyButton>
+                        <MyButton onClick={() => handleEdit(vehicle.vehicleId)}>Edit</MyButton>
+                        <MyButton onClick={() => handleDelete(vehicle.vehicleId)}>Delete</MyButton>
                     </td>
                   </tr>
                 ))}

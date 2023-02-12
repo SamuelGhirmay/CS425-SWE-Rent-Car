@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import MyInput from "../../components/UI/input/MyInput";
 import MyButton from "../../components/UI/button/MyButton";
 import {useNavigate, useParams} from "react-router";
+import VehicleService from '../../API/VehicleService';
 
 const VehicleDetails = () => {
-
-    //const { id } = useParams();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [vehicle, setVehicle] = useState({
@@ -21,15 +21,17 @@ const VehicleDetails = () => {
                 availability: false
     });
 
-    // useEffect(() => {
-        
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await VehicleService.getById(id)
+            setVehicle(response.data);
+        }
+        fetchData()
+    }, [id]);
 
-    // }, [id]);
 
-
-
-    function handleSubmit()  {
-       console.log(vehicle)
+    async function handleSubmit()  {
+       await VehicleService.update(id, vehicle);
        navigate('/vehicles');
     }
 
@@ -39,7 +41,7 @@ const VehicleDetails = () => {
 
     return (
         <div>
-            <h1>Vehicles Details</h1>
+            <h1>Vehicle Details</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="make">Make:</label>
                 <MyInput name="make" type="text" value={vehicle.make} onChange={handleInputChange} /><br/>
@@ -53,16 +55,16 @@ const VehicleDetails = () => {
                 <MyInput name="numberOfSeats" type="number" value={vehicle.numberOfSeats} onChange={handleInputChange} /><br/>
                 <label htmlFor="fuelType">Fuel Type:</label>
                 <select name="fuelType" id="fuelType" onChange={handleInputChange} value={vehicle.fuelType}>
-                   <option value='gasoline'>Gasoline</option>
-                   <option value='diesel'>Diesel</option>
-                   <option value='electric'>Electric</option>
+                   <option value='GASOLINE'>Gasoline</option>
+                   <option value='DIESEL'>Diesel</option>
+                   <option value='ELECTRIC'>Electric</option>
                 </select><br/>
                 <label htmlFor="price">Price:</label>
                 <MyInput name="price" type="number" value={vehicle.price} onChange={handleInputChange} /><br/>
                 <label htmlFor="transmission">Transmission:</label>
                 <select name="transmission" id="transmission" onChange={handleInputChange} value={vehicle.transmission}>
-                   <option value='manual'>Manual</option>
-                   <option value='automatic'>Automatic</option>
+                   <option value='MANUAL'>Manual</option>
+                   <option value='AUTOMATIC'>Automatic</option>
                 </select><br/>
                 <label htmlFor="plateNumber">Plate Number:</label>
                 <MyInput name="plateNumber" type="text" value={vehicle.plateNumber} onChange={handleInputChange} /><br/>

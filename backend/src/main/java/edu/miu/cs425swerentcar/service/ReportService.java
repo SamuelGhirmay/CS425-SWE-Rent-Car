@@ -8,16 +8,11 @@ import java.util.Optional;
 
 public interface ReportService {
 
-    Report saveReport(Report newReport);
-
-    List<Report> getAllReport();
+    List<Report> getAllReports();
 
     Optional<Report> getReportById(Long reportId);
 
     Report addNewReport(ReportRequest newReportRequest);
 
     void deleteReportById(Long reportId);
-
-    Report updateReportById(Long reportId, ReportRequest editedReport);
-
 }

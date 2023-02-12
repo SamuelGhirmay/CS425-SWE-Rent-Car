@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
-@RequestMapping(value = "/car-rental/api/v1//vehicles")
+@RequestMapping(value = "/api/car-rental/vehicles")
 public class VehicleController {
 
     private VehicleService vehicleService;
@@ -25,47 +26,40 @@ public class VehicleController {
     }
 
     //List all vehicles
-    @GetMapping(value = "/list")
+    @GetMapping()
     public ResponseEntity<List<Vehicle>> listAllVehicles() {
         return ResponseEntity.ok(vehicleService.getAllVehicle());
     }
 
-    @GetMapping(value = "/get/{vehicleId}")
+    @GetMapping(value = "/{vehicleId}")
     public ResponseEntity<Vehicle> getVehicleById(@PathVariable Long vehicleId) throws VehicleNotFoundException {
         return ResponseEntity.ok(vehicleService.getVehicleById(vehicleId));
 
     }
-    @GetMapping(value = "/getVehicleByModel/{model}")
+    @GetMapping(value = "/getByModel/{model}")
     public ResponseEntity<List<Vehicle>> getVehiclesByModel(@PathVariable String model) {
         return ResponseEntity.ok(vehicleService.getVehicleByModel(model));
     }
-    @GetMapping(value = "/getVehicleByPrice/{price}")
+    @GetMapping(value = "/getByPrice/{price}")
     public ResponseEntity<List<Vehicle>> getVehiclesByPrice(@PathVariable double price) {
         return ResponseEntity.ok(vehicleService.getVehicleByPrice(price));
     }
-    @GetMapping(value = "/getVehicleByTransmission/{transmission}")
-    public ResponseEntity<List<Vehicle>> getVehicleByTransmissionType(@PathVariable String transmission){
-        return ResponseEntity.ok(vehicleService.getVehicleByTransmission(transmission));
+    @GetMapping(value = "/get-available")
+    public ResponseEntity<List<Vehicle>> getAvailableVehicles(){
+        return ResponseEntity.ok(vehicleService.getAvailableVehicles());
     }
 
-    @PutMapping(value = "/update/{vehicleId}")
+    @PutMapping(value = "/{vehicleId}")
     public  Vehicle updateVehicleById(@RequestBody VehicleRequest vehicle, @PathVariable Long vehicleId) {
         return  vehicleService.updateVehicleById(vehicle,vehicleId);
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping()
     public Vehicle addNewVehicle(@Valid @RequestBody VehicleRequest vehicle)  {
         return vehicleService.addNewVehicle(vehicle);
     }
-    @DeleteMapping(value = "/delete/{vehicleId}")
+    @DeleteMapping(value = "/{vehicleId}")
     public void deleteById(@PathVariable Long vehicleId) {
         vehicleService.deleteById(vehicleId);
     }
-
-//    @PutMapping("/update-status/{vehicleId}")
-//    public void updateVehicleStatus(@PathVariable Long vehicleId, @RequestBody VehicleStatus vehicleStatus){
-//         vehicleService.updateVehicleStatus(vehicleId, vehicleStatus);
-//
-//    }
-
 }
