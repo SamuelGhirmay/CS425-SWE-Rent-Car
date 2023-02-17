@@ -1,5 +1,6 @@
 package edu.miu.cs425swerentcar.controller;
 
+import edu.miu.cs425swerentcar.dto.UpdateReservationRequest;
 import edu.miu.cs425swerentcar.entity.Reservation;
 import edu.miu.cs425swerentcar.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/car-rental/api/v1//reservation")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/api/car-rental/reservations")
 public class ReservationController {
 
     private ReservationService reservationService;
@@ -16,23 +18,38 @@ public class ReservationController {
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-    @GetMapping(value = "/list")
+    @GetMapping()
     public List<Reservation> listAllReservations() {
-        return reservationService.getAllReservation();
+        return reservationService.getAllReservations();
     }
 
-    @PostMapping(value = "/make")
+    @GetMapping("/getByCustomer/{customerId}")
+    public List<Reservation> listAllReservationsByCustomerId(@PathVariable Long customerId) {
+        return reservationService.getReservationsByCustomerId(customerId);
+    }
+
+    @PostMapping()
     public Reservation makeNewReservation(Reservation reservation) {
         return reservationService.createReservation(reservation);
     }
 
-    @DeleteMapping(value = "/cancel/")
+    @PostMapping(value = "/cancel")
     public void cancelReservation(Long reservationId) {
         reservationService.cancelReservationById(reservationId);
     }
 
-    @GetMapping(value = "/view")
-    public Optional<Reservation> viewReservationById(Long reservationId){
+    @GetMapping(value = "/{reservationId}")
+    public Optional<Reservation> viewReservationById(@PathVariable Long reservationId){
         return reservationService.viewReservationById(reservationId);
+    }
+
+    @DeleteMapping(value = "/{reservationId}")
+    public void deleteById(@PathVariable Long reservationId){
+        reservationService.deleteReservationById(reservationId);
+    }
+
+    @PutMapping(value = "/{reservationId}")
+    public void updateReservationById(@RequestBody UpdateReservationRequest reservationRequest, @PathVariable Long reservationId){
+        reservationService.updateReservationById(reservationRequest,reservationId);
     }
 }

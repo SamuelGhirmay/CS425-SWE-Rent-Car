@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/car-rental/api/v1//discount")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/api/car-rental/discounts")
 public class DiscountController {
 
     private DiscountService discountService;
@@ -21,22 +22,27 @@ public class DiscountController {
         this.discountService = discountService;
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping()
     public List<Discount> listAllDiscounts() {
         return discountService.getAllDiscounts();
     }
 
-    @PostMapping(value = "/new")
+    @GetMapping(value = "/{discountId}")
+    public Discount getDiscountById(@PathVariable Long discountId) {
+        return discountService.getDiscountById(discountId);
+    }
+
+    @PostMapping()
     public Discount createNewDiscount(@Valid @RequestBody Discount discount) {
         return discountService.createNewDiscount(discount);
     }
-    @PutMapping(value = "/update/{discountId}")
-    public Discount updateDiscountById(DiscountRequest discountRequest, Long discountId) {
+    @PutMapping(value = "/{discountId}")
+    public Discount updateDiscountById(DiscountRequest discountRequest, @PathVariable Long discountId) {
         return discountService.updateDiscountById(discountRequest,discountId);
     }
 
-    @DeleteMapping(value = "/delete")
-    public void deleteDiscountById(Long discountId) {
+    @DeleteMapping(value = "/{discountId}")
+    public void deleteDiscountById(@PathVariable Long discountId) {
         discountService.deleteDiscountById(discountId);
     }
 

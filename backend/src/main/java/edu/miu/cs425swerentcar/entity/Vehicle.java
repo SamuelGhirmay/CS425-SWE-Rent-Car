@@ -8,7 +8,7 @@ import lombok.*;
 @Entity
 @Table(name = "vehicles")
 @NoArgsConstructor
-@AllArgsConstructor(staticName = "build")
+@AllArgsConstructor
 @Getter
 @Setter
 public class Vehicle {
@@ -16,29 +16,25 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long vehicleId;
 
-    @Column(name = "make")
     private String make;
 
-    @Column(name = "model")
     private String model;
 
-    @Column(name = "year")
-    private int year;
+    private Integer year;
 
-    @Column(name = "color")
     private String color;
 
-    private int numberOfSeats;
+    private Integer numberOfSeats;
 
     private double price;
 
-    private boolean availability;
+    private Boolean availability;
 
     private String plateNumber;
 
+    @Enumerated(EnumType.STRING)
     private VehicleTransmission transmission;
 
+    @Enumerated(EnumType.STRING)
     private VehicleFuelType fuelType;
-
-
 }

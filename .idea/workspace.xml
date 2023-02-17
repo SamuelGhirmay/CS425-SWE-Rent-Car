@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="352ed8e4-5ddf-4c59-bca5-50b7ce26da2e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/edu/miu/cs425swerentcar/service/impl/VehicleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/edu/miu/cs425swerentcar/service/impl/VehicleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +49,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/My Courses/SE/project/CS425-SWE-Rent-Car/client&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/My Courses/SE/project/BankApplication&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -90,7 +85,13 @@
       <workItem from="1675962380502" duration="6000" />
       <workItem from="1676136504479" duration="122000" />
       <workItem from="1676136770189" duration="3332000" />
-      <workItem from="1676237389958" duration="436000" />
+      <workItem from="1676237389958" duration="4278000" />
+      <workItem from="1676297866628" duration="2177000" />
+      <workItem from="1676414557945" duration="242000" />
+      <workItem from="1676417611096" duration="3281000" />
+      <workItem from="1676425521386" duration="1276000" />
+      <workItem from="1676439952880" duration="629000" />
+      <workItem from="1676489101835" duration="1188000" />
     </task>
     <servers />
   </component>

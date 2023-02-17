@@ -19,25 +19,35 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public List<Discount> getAllDiscounts() {
-        return discountRepository.findAll();
+        return this.discountRepository.findAll();
     }
 
     @Override
     public Discount createNewDiscount(Discount discount) {
-        return discountRepository.save(discount);
+        return this.discountRepository.save(discount);
     }
 
     @Override
-    public Discount updateDiscountById(DiscountRequest discount, Long discountId) {
-        Discount updatedDiscount = Discount.build(discountId, discount.getAmount(),
-                discount.getCurrency(),discount.getDescription(),discount.getTitle(),
-                discount.getVehicle());
-        return updatedDiscount;
+    public Discount updateDiscountById(DiscountRequest discountRequest, Long discountId) {
+        Discount discount = this.discountRepository.findById(discountId).get();
+        if(discount != null) {
+            discount.setCode(discountRequest.getCode());
+            discount.setTitle(discountRequest.getTitle());
+            discount.setPercentage(discountRequest.getPercentage());
+            discount.setDescription(discountRequest.getDescription());
+            discount.setVehicleMake(discountRequest.getVehicleMake());
+            return this.discountRepository.save(discount);
+        }
+        return null;
+    }
+
+    @Override
+    public Discount getDiscountById(Long discountId) {
+        return discountRepository.findById(discountId).get();
     }
 
     @Override
     public void deleteDiscountById(Long discountId) {
-        discountRepository.deleteById(discountId);
-
+        this.discountRepository.deleteById(discountId);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface FeedbackService {
     public Feedback createFeedback(FeedbackRequest newFeedbackRequest);
-    public List<Feedback> getAllFeedBack();
+    public List<Feedback> getAllFeedbacks();
 
     public List<Feedback> getFeedbackByCustomerId(Long customerId) throws NoSuchFieldException, IllegalAccessException;
 

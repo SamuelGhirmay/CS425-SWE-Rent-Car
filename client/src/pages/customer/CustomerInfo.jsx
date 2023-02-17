@@ -1,17 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyInput from "../../components/UI/input/MyInput";
 import MyButton from "../../components/UI/button/MyButton";
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import CustomerService from '../../API/CustomerService';
 
 const CustomerInfo = () => {
     const navigate = useNavigate();
+    const { customerId } = useParams();
     const [customer, setCustomer] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        contactPhoneNumber: '',
-        password: '',
-        driverLicenseNumber: ''
+        firstName: 'Abror',
+        lastName: 'Khamidov',
+        email: 'test@gmail.com',
+        phone: '224-4243-342',
+        password: '12345',
+        driverLicense: '2132ABDS'
+    })
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const customer = await CustomerService.getCustomerById(customerId);
+            setCustomer(customer.data);
+        }
+        fetchData()
     })
     function handleInputChange(e) {
         setCustomer({...customer, [e.target.name]: e.target.value})
@@ -32,12 +42,12 @@ const CustomerInfo = () => {
                 <MyInput type="text" placeholder="type lastname" name="lastName" value={customer.lastName} onChange={handleInputChange}/><br/>
                 <label htmlFor="email">Email:</label>
                 <MyInput type="email" placeholder="type email" name="email" value={customer.email} onChange={handleInputChange}/><br/>
-                <label htmlFor="contactPhoneNumber">Phone Number:</label>
-                <MyInput type="text" placeholder="type phone" name="contactPhoneNumber" value={customer.contactPhoneNumber} onChange={handleInputChange}/><br/>
+                <label htmlFor="phone">Phone Number:</label>
+                <MyInput type="text" placeholder="type phone" name="phone" value={customer.phone} onChange={handleInputChange}/><br/>
                 <label htmlFor="password">Password:</label>
                 <MyInput type="password" placeholder="type password" name="password" value={customer.password} onChange={handleInputChange}/><br/>
                 <label htmlFor="driverLicenseNumber">Driver License Number:</label>
-                <MyInput type="text" placeholder="type driver license number"  name="driverLicenseNumber"value={customer.driverLicenseNumber} onChange={handleInputChange}/><br/>
+                <MyInput type="text" placeholder="type driver license number"  name="driverLicenseNumber"value={customer.driverLicense} onChange={handleInputChange}/><br/>
                 <MyButton>Update</MyButton>
             </form>
         </div>

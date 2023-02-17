@@ -1,6 +1,8 @@
 package edu.miu.cs425swerentcar.controller;
 
 import edu.miu.cs425swerentcar.dto.AdminRequest;
+import edu.miu.cs425swerentcar.dto.LoginRequest;
+import edu.miu.cs425swerentcar.dto.LoginResponse;
 import edu.miu.cs425swerentcar.entity.Admin;
 import edu.miu.cs425swerentcar.service.AdminService;
 import jakarta.validation.Valid;
@@ -12,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/car-rental/api/admin")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/api/car-rental/admin")
 public class AdminController {
 
     private AdminService adminService;
@@ -21,35 +24,25 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping()
     public ResponseEntity<List<Admin>> listStudent(){
-        return ResponseEntity.ok(adminService.getAllAdmin());
+        return ResponseEntity.ok(adminService.getAll());
     }
 
-    @GetMapping(value ={"/get/{adminId}"})
+    @GetMapping(value ={"/{adminId}"})
     public ResponseEntity<Optional<Admin>> getStudentById(@PathVariable Long adminId){
         return ResponseEntity.ok(adminService.getAdminById(adminId));
     }
 
-
-    @PostMapping(value = {"/new"})
-    public ResponseEntity<Admin> addNewAdmin(@Valid @RequestBody AdminRequest adminRequest){
-        return new ResponseEntity<>(adminService.addNewAdmin(adminRequest),
+    @PostMapping()
+    public ResponseEntity<Admin> addNewAdmin(@Valid @RequestBody Admin admin){
+        return new ResponseEntity<>(adminService.saveAdmin(admin),
                 HttpStatus.CREATED);
     }
 
-    @PutMapping(value = {"/update/{adminId}"})
-    public ResponseEntity<Admin> updateAdmin(@Valid @RequestBody AdminRequest adminRequest,
-                                                 @PathVariable Long adminId){
-        return new ResponseEntity<>(adminService.updateAdminById(adminRequest, adminId),
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest){
+        return new ResponseEntity<>(adminService.login(loginRequest),
                 HttpStatus.OK);
     }
-
-    @DeleteMapping (value = {"/delete/{adminId}"})
-    public ResponseEntity<Void> deleteAdmin(@PathVariable Long adminId){
-        adminService.deleteAdminById(adminId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-
 }

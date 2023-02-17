@@ -5,14 +5,23 @@ import 'bootstrap/dist/css/bootstrap.css';
 import AppRouter from "./components/AppRouter";
 import {AuthContext} from "./context";
 import AdminNavbar from './components/UI/Navbar/AdminNavbar';
+import CustomerNavbar from './components/UI/Navbar/CustomerNavbar';
 
 function App() {
     const [isAuth, setIsAuth] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [isCustomer, setIsCustomer] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         if (localStorage.getItem('auth')) {
             setIsAuth(true)
+        }
+        if (localStorage.getItem('admin')) {
+            setIsAdmin(true)
+        }
+        if (localStorage.getItem('customer')) {
+            setIsCustomer(true)
         }
         setLoading(false);
     }, [])
@@ -21,10 +30,14 @@ function App() {
         <AuthContext.Provider value={{
             isAuth,
             setIsAuth,
+            isAdmin,
+            setIsAdmin,
+            isCustomer,
+            setIsCustomer,
             isLoading
         }}>
             <BrowserRouter>
-                {isAuth && <AdminNavbar />}
+                {isAuth  ? ( isAdmin ? <AdminNavbar/> : <CustomerNavbar />) : null}
                 <AppRouter/>
             </BrowserRouter>
          </AuthContext.Provider>

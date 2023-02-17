@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/rentcar
+    url: jdbc:postgresql://localhost:5432/swe
     username: postgres
     password: sami12345
   jpa:

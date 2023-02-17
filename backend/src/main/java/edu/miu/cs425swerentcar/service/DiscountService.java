@@ -10,5 +10,6 @@ public interface DiscountService {
     List<Discount> getAllDiscounts();
     Discount createNewDiscount(Discount discount);
     Discount updateDiscountById(DiscountRequest discount, Long discountId);
+    Discount getDiscountById(Long discountId);
     void deleteDiscountById(Long discountId);
 }

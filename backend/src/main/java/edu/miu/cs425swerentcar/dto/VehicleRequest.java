@@ -31,9 +31,7 @@ public class VehicleRequest {
 
     private VehicleFuelType fuelType;
 
-    private boolean available;
+    private boolean availability;
 
     private String plateNumber;
-
-    private Long discountId;
 }

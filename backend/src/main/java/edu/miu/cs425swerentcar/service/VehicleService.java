@@ -12,7 +12,7 @@ public interface VehicleService {
     Vehicle getVehicleById(Long vehicleId) throws VehicleNotFoundException;
     List<Vehicle> getVehicleByModel(String model);
     List<Vehicle> getVehicleByPrice(double price);
-    List<Vehicle> getVehicleByTransmission(String transmission);
+    List<Vehicle> getAvailableVehicles();
     Vehicle updateVehicleById(VehicleRequest vehicle, Long vehicleId);
     Vehicle addNewVehicle(VehicleRequest vehicle);
     void deleteById(Long vehicleId);

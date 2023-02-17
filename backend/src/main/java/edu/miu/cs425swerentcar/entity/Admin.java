@@ -19,9 +19,8 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
-    private String userName;
+    private String username;
     private String password;
-    private String position;
 
     @OneToMany(mappedBy = "reportId", cascade = CascadeType.ALL)
     @JsonIgnore

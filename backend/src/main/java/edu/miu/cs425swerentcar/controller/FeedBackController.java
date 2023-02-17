@@ -10,28 +10,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = {"/car-rental/v1/api/feedback"})
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = {"/api/car-rental/feedbacks"})
 public class FeedBackController {
 
     @Autowired
     FeedbackService feedBackService;
-    @Autowired
-    private FeedbackRepository feedBackRepository;
 
-    @PostMapping(value = {"/create"})
+    @PostMapping()
     public Feedback createNewFeedbacks(@RequestBody FeedbackRequest newFeedBackRequest){
         return feedBackService.createFeedback(newFeedBackRequest);
-
     }
 
-    @GetMapping(value = "/list")
+    @GetMapping()
     public List<Feedback> getAllFeedbacks(){
-        return feedBackRepository.findAll();
+        return feedBackService.getAllFeedbacks();
     }
-//    @GetMapping("/list-by-id/{customerId}")
-//    public List<Feedback> getListOfFeedbackByCustomerId(@Valid @PathVariable Long customerId) throws NoSuchFieldException, IllegalAccessException {
-//        return feedBackService.getFeedbackByCustomerId(customerId);
-//    }
+
+    @GetMapping("/getByCustomer/{customerId}")
+    public List<Feedback> getFeedbacksByCustomerId(@PathVariable Long customerId) throws NoSuchFieldException, IllegalAccessException {
+        return feedBackService.getFeedbackByCustomerId(customerId);
+    }
 
 
 }

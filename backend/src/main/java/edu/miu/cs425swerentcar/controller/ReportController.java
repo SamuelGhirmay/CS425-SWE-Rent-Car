@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/car-rental/api/report")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(value = "/api/car-rental/reports")
 public class ReportController {
 
     private ReportService reportService;
@@ -21,28 +22,24 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @GetMapping(value = "/list")
-    public ResponseEntity<List<Report>> listReport(){
-        return ResponseEntity.ok(reportService.getAllReport());
+    @PostMapping()
+    public ResponseEntity<Report> createReport(@RequestBody ReportRequest reportRequest){
+        return ResponseEntity.ok(reportService.addNewReport(reportRequest));
     }
 
-    @GetMapping(value ={"/get/{reportId}"})
+    @GetMapping()
+    public ResponseEntity<List<Report>> listReport(){
+        return ResponseEntity.ok(reportService.getAllReports());
+    }
+
+    @GetMapping("/{reportId}")
     public ResponseEntity<Optional<Report>> getReportById(@PathVariable Long reportId){
         return ResponseEntity.ok(reportService.getReportById(reportId));
     }
 
-    @PutMapping(value = {"/update/{reportId}"})
-    public ResponseEntity<Report> updateReport(@Valid @RequestBody ReportRequest reportRequest,
-                                               @PathVariable Long reportId){
-        return new ResponseEntity<>(reportService.updateReportById(reportId,reportRequest),
-                HttpStatus.OK);
-    }
-
-    @DeleteMapping (value = {"/delete/{reportId}"})
+    @DeleteMapping ("/{reportId}")
     public ResponseEntity<Void> deleteReportById(@PathVariable Long reportId){
         reportService.deleteReportById(reportId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 }

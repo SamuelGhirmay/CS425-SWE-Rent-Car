@@ -11,12 +11,9 @@ import java.util.List;
 @AllArgsConstructor(staticName = "build")
 @NoArgsConstructor
 public class DiscountRequest {
-    private double amount;
-
-    private String currency;
-
+    private double percentage;
+    private String code;
     private String description;
-
     private String title;
-    private List<Vehicle> vehicle;
+    private String vehicleMake;
 }
